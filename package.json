@@ -1,0 +1,22 @@
+{
+  "name": "pyro.gist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daryl-cecile/PyroGist.git"
+  },
+  "author": "Daryl Cecile <darylcecile@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/daryl-cecile/PyroGist/issues"
+  },
+  "homepage": "https://github.com/daryl-cecile/PyroGist#readme",
+  "devDependencies": {
+    "lessc": "^1.0.2"
+  }
+}
