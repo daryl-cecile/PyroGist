@@ -8,6 +8,9 @@ type PyroGistOptions = {
 
 async function PyroGist(selector:string, options:PyroGistOptions){
     let element = document.querySelector(selector);
+    if (!element){
+        throw new Error(`No element was matched by selector "${selector}"`);
+    }
     element.classList.add('pyrogist-container');
     let file = await PyroGist.getFile(options.url);
 
