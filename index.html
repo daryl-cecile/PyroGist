@@ -5,11 +5,27 @@
     <title>Title</title>
 
     <style>
-        main{
-            width: 100%;
+        body{
+            padding: 0;
+            margin: 0;
+        }
+
+        main > section {
+            padding: 20px;
+        }
+
+        main > section > div{
             max-width: 820px;
+            width: 100%;
             margin: 0 auto;
-            padding: 50px 0;
+        }
+
+        main > section > span{
+            max-width: 820px;
+            width: 100%;
+            margin: 0 auto 20px;
+            display: block;
+            font-family: Avenir, sans-serif;
         }
     </style>
 
@@ -23,11 +39,29 @@
 
     <main>
 
-        <div id="preview"></div>
+        <section>
+            <span>"normal" theme</span>
+            <div id="preview"></div>
+        </section>
 
-        <br>
+        <section style="background: black; color: white">
+            <span>"dark" theme</span>
+            <div id="preview2"></div>
+        </section>
 
-        <div id="preview2"></div>
+        <section style="background: teal; color: white">
+            <span>"match" theme</span>
+            <div id="preview3"></div>
+        </section>
+
+        <section>
+            <span>"normal" theme</span>
+            <div id="preview4">
+                function call(name){
+                    console.log("Hello",name);
+                }
+            </div>
+        </section>
 
     </main>
 
@@ -40,10 +74,24 @@
     });
 
     PyroGist("#preview2",{
+        url: "https://github.com/daryl-cecile/MiniTest-1/blob/master/test.js",
+        theme: "dark",
+        autoFit: true,
+        highlight: true
+    });
+
+    PyroGist("#preview3",{
         url: "https://github.com/daryl-cecile/Slosh/blob/master/library/defaultStyle.css",
-        theme: "normal",
+        theme: "match",
         autoFit: true,
         highlight: false
+    });
+
+    PyroGist("#preview4",{
+        name: "Woop",
+        theme: "normal",
+        autoFit: true,
+        highlight: true
     });
 </script>
 

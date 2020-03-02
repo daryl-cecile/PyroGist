@@ -18,5 +18,8 @@
   "homepage": "https://github.com/daryl-cecile/PyroGist#readme",
   "devDependencies": {
     "lessc": "^1.0.2"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

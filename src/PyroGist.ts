@@ -1,6 +1,7 @@
 
 type PyroGistOptions = {
-    url:string,
+    url?:string,
+    name?:string,
     theme?:"normal"|"match"|"dark"|"ultraDark",
     autoFit?:boolean,
     highlight?:boolean
@@ -12,7 +13,13 @@ async function PyroGist(selector:string, options:PyroGistOptions){
         throw new Error(`No element was matched by selector "${selector}"`);
     }
     element.classList.add('pyrogist-container');
-    let file = await PyroGist.getFile(options.url);
+    let isRemoteEmbed = options.url?.length > 0;
+    let file = isRemoteEmbed ? (await PyroGist.getFile(options.url)) : null;
+    let bodyContent = element.innerHTML.trim();
+
+    element.innerHTML = "";
+
+    let fileName = options.name ?? "File";
 
     if (options.theme){
         if (options.theme === "dark"){
@@ -28,16 +35,23 @@ async function PyroGist(selector:string, options:PyroGistOptions){
 
     let htmlEl = document.createElement('pre');
     htmlEl.className = 'pyrogist-body';
-    htmlEl.innerHTML = `<code>${file.content}</code>`;
+    htmlEl.innerHTML = `<code>${isRemoteEmbed ? file.content : bodyContent}</code>`;
 
     let header = document.createElement('div');
     header.className = 'pyrogist-head';
-    header.innerHTML = `${file.name}`;
+    header.innerHTML = `${fileName}`;
 
     let footer = document.createElement('div');
     footer.className = 'pyrogist-foot';
-    footer.innerHTML = `<div><a href="${file.liveAt}" target="_blank" rel="noopener">View</a> <a target="_blank" rel="noopener" href="${file.downloadUrl}">Raw</a></div>
+
+    if (isRemoteEmbed){
+        footer.innerHTML = `<div><a href="${file.liveAt}" target="_blank" rel="noopener">View</a> <a target="_blank" rel="noopener" href="${file.downloadUrl}">Raw</a></div>
 <div>Embedded via <a target="_blank" rel="noopener" href="https://github.com/daryl-cecile/PyroGist">PyroGist</a></div>`;
+    }
+    else{
+        footer.innerHTML = `<div><a href="#" rel="noopener"></a> <a target="_blank" rel="noopener" href="#"></a></div>
+<div>Embed Powered by <a target="_blank" rel="noopener" href="https://github.com/daryl-cecile/PyroGist">PyroGist</a></div>`;
+    }
 
     element.appendChild(header);
 
@@ -61,7 +75,6 @@ async function PyroGist(selector:string, options:PyroGistOptions){
         })
     }
 }
-
 
 namespace PyroGist {
     export class File{
